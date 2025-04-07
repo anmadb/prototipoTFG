@@ -1,3 +1,8 @@
+CREATE DATABASE gotrip_db;
+
+USE gotrip_db;
+
+
 DROP TABLE IF EXISTS `Friendship`;
 DROP TABLE IF EXISTS `Messages`;
 DROP TABLE IF EXISTS `Reactions`;
@@ -50,8 +55,8 @@ CREATE TABLE `Posts` (
   `user-id` bigint NOT NULL,
   `img` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `geoCode` json DEFAULT NULL,
-  `created_at` date NOT NULL,
+  `latitude` DOUBLE NOT NULL,
+  `longitude` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   KEY `posts_description_index` (`description`),
   KEY `posts_img_index` (`img`),
@@ -70,16 +75,12 @@ INSERT INTO `Users` (`id`, `username`, `email`, `password`, `avatar`, `bio`, `cr
 --
 -- Dumping data for table `Posts`
 --
-
-INSERT INTO `Posts` (`latitude`,`longitude`) VALUES
-( '48.8566','2.3522'),
-('40.7128', '-74.006'),
-('34.0522',' -118.2437'),
-('51.5074',' -0.1278'),
-('19.4326',' -99.1332')
-where id is < 5;
-
-INSERT INTO posts ("user-id","img","description","latitude","longitude") values ('','','','','');
+INSERT INTO `Posts` (`id`, `user-id`, `img`, `description`,`latitude`,`longitude`) VALUES
+(1, 1, '1.avif', 'Disfrutando de las vistas icónicas de la ciudad de Nueva York. ¡El skyline es impresionante! #Viajes #NuevaYork','40.7128', '-74.006'),
+(2, 2, '2.jpg', 'Explorando las calles de Los Ángeles y su vibrante escena artística. ¡Qué ciudad tan inspiradora! #Viajes #LosAngeles','34.0522',' -118.2437'),
+(3, 3, '3.jpg', 'Paseando por Londres y descubriendo su rica historia y cultura. ¡Una experiencia inolvidable! #Viajes #Londres','51.5074',' -0.1278'),
+(4, 4, '4.jpg', 'Caminando por las calles de París, la ciudad del amor y la luz. ¡Cada rincón es una obra de arte! #Viajes #París','48.8566','2.3522'),
+(5, 5, '5.webp', 'Descubriendo la energía y los colores de la Ciudad de México. ¡Una ciudad llena de vida y cultura! #Viajes #CDMX','19.4326',' -99.1332');
 
 
 -- Set auto-increment values
