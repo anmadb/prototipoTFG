@@ -18,16 +18,14 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query(value = "SELECT * FROM posts WHERE id = :id", nativeQuery = true)
     Post getPostById(@Param("id") Long id);
 
-   /*  @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO posts (\"user-id\",\"img\",\"description\",\"latitude\",\"longitude\") values (':user-id',':img',':description',':latitude',':longitude');", nativeQuery = true)
-    Post addPost(@Param("user-id") Long userId, @Param("img") String img, @Param("description") String description, @Param("latitude") double latitude, @Param("longitude") double longitude);
- */
+    @Query(value = "SELECT img FROM posts WHERE id = :id", nativeQuery = true)
+    String getImgName(@Param("id") Long id); 
+
+   
     
     //TODO: addPost()
     //TODO: updatePost(id)
     //TODO: deletePost(id)
-
     //TODO: getImgName(id)
 
 }

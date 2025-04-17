@@ -25,6 +25,16 @@ export default function Markers() {
     iconAnchor: [15, 30]
   })
 
+  function deletePost(id) {
+   
+    fetch(`http://localhost:8080/api/posts/${id}`, {
+      method: 'DELETE',
+      
+    })
+      window.location.reload()
+    
+  }
+
   return (
     // TODO: Finished popup template
     // TODO: Separete the marker component into the user component(part of the popup template) and the post component(also popup template)
@@ -40,6 +50,9 @@ export default function Markers() {
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}
             <p>{post.description}</p>
+            
+            <button onClick={(e) => {e.preventDefault; deletePost(post.id)}}>Delete</button>
+            
           </Popup>
         </Marker>
       ))}
