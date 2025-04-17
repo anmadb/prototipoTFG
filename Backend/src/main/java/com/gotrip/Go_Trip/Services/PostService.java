@@ -33,7 +33,7 @@ public class PostService {
 
 
     @Transactional
-    public Post addPost(Long userId, MultipartFile img, String description, double latitude, double longitude) throws IOException {
+    public Post addPost(Long userId, MultipartFile img, String description, float latitude, float longitude) throws IOException {
 
         String imgName = saveImage(img, userId); 
         
