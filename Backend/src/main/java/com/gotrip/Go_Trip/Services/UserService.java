@@ -1,0 +1,62 @@
+package com.gotrip.Go_Trip.Services;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.gotrip.Go_Trip.Entities.User;
+import com.gotrip.Go_Trip.Repositories.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public User registerUser(User user){ // este metodo hace todo el trabajo cuando un usuario se registra, recibe los datos del usuario
+
+        if(userRepository.existsByUsername(user.getUsername())){
+            throw new RuntimeException("El nombre de usuario ya existe.");
+        }
+
+        if(userRepository.existsByEmail(user.getEmail())){
+            throw new RuntimeException("El email ya esta asociado a una cuenta.");
+        }
+
+        user.setPassword((passwordEncoder.encode(user.getPassword()))); //encripta la contraseña
+        user.setCreatedAt(LocalDate.now());
+
+        return userRepository.save(user);
+      
+
+    }
+
+    public User login(String usernameOrEmail , String password) {
+
+        Optional<User> userOptional = userRepository.findByUsername(usernameOrEmail);
+    
+        if (userOptional.isEmpty()) {
+            userOptional = userRepository.findByEmail(usernameOrEmail);
+        }
+    
+        User user = userOptional.orElseThrow(() ->
+            new RuntimeException("Usuario o email no encontrado.")
+        );
+    
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Contraseña incorrecta.");
+        }
+    
+        return user;
+    }
+    
+    
+    
+
+}
