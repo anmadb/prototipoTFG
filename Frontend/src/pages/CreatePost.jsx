@@ -41,7 +41,6 @@ export default function CreatePost() {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/posts`, {
                 method: 'POST',
                 body: formData
-                // NO incluyas el header Content-Type! Deja que el navegador lo establezca automáticamente
             });
     
             if (!response.ok) {
@@ -50,7 +49,7 @@ export default function CreatePost() {
             }
     
           
-            window.location.href = '/home'; // Redirigir a la página de inicio después de crear el post
+            window.location.href = '/home'; 
     
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
