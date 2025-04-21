@@ -1,4 +1,4 @@
-export default function SingUp() {
+export default function Login() {
     return (
         <>
             <h1>Login</h1>
