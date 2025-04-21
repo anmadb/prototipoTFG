@@ -3,8 +3,24 @@
     right: 0;
 
     height: 100vh;
-    width: calc(100% - 150px);
+    width: 100%;
     border: none;
     outline: none;
-    background-image: linear-gradient(#cde4eb, #aad3df);
+    background-image: radial-gradient(#66c0db, #cde4eb);
+
+    animation-name: startAnimMap;
+    animation-duration: .7s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes startAnimMap {
+    0% {
+        transform: translateX(300px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,19 +55,24 @@ public class PostController {
                 .body(resource);
     }
 
-
     @PostMapping()
-    public void addPost( @RequestParam("userId") Long userId,
+    public void addPost( //@RequestParam("userId") Long userId,
             @RequestParam("image") MultipartFile image,
             @RequestParam("description") String description,
-            @RequestParam("latitude") double latitude,
-            @RequestParam("longitude") double longitude) throws IOException {
+            @RequestParam("latitude") float latitude,
+            @RequestParam("longitude") float longitude) throws IOException {
 
-       
+        long userId = 1;
 
         postService.addPost(userId, image, description, latitude, longitude);
 
     }
+
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable Long id) {
+        postService.deletePostsById(id);
+    } 
 
     //DONE: GET     api/posts
     //TODO: POST    api/posts

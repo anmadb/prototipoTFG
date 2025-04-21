@@ -1,18 +1,26 @@
 import './App.css'
 
-import Map from './components/map/map.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from './pages/home.jsx'
+import CreatePost from './pages/CreatePost.jsx'
+import SingUp from './pages/SingUp.jsx';
+import Login from './pages/Login.jsx';
 
 
 function App() {
 
   return (
-    <>
-      <Map
-      position={null} 
-      zoom={null}
-      scroll={null}
-      />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/h" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/createPost" element={<CreatePost />} />
+        <Route path="/SingUp" element={<SingUp />} />
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+
   )
 }
 

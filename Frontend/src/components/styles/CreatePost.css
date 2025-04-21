@@ -1,0 +1,94 @@
+.content-w-navbar {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px); 
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2a6f5b;
+    font-size: 2.2rem;
+  }
+  
+  .form-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #f0fff8;
+    box-shadow: 0 4px 15px rgba(42, 111, 91, 0.2);
+    border: 1px solid #7fcdbb;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2a6f5b;
+    font-weight: 600;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #7fcdbb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2a6f5b;
+    box-shadow: 0 0 0 2px rgba(42, 111, 91, 0.2);
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .image-preview {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .image-preview img {
+    border-radius: 6px;
+    border: 1px solid #7fcdbb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .submit-btn {
+    background-color: #4ecdc4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #2a6f5b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(42, 111, 91, 0.3);
+  }
