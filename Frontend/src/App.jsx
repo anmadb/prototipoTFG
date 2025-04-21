@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from './pages/home.jsx'
 import CreatePost from './pages/CreatePost.jsx'
-import Login_SingUp from './pages/Login_SingUp.jsx';
+import SingUp from './pages/SingUp.jsx';
+import Login from './pages/Login.jsx';
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
         <Route path="/h" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/createPost" element={<CreatePost />} />
-        <Route path="/" element={<Login_SingUp />} />
+        <Route path="/SingUp" element={<SingUp />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </BrowserRouter>
 
