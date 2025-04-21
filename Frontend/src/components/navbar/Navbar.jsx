@@ -17,7 +17,7 @@ export default function Navbar() {
         <nav id='navbar' className='navbar'>
             <a className='btn' href="/home">Home</a>
             <a className='btn' href="/createPost">Create New Post</a>
-            <a className='btn' href="/login">Log Out</a>
+            <a className='btn' href="/">Log Out</a>
         </nav>
     )
 }

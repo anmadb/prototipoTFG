@@ -2,8 +2,6 @@ package com.gotrip.Go_Trip.DTO;
 
 import lombok.Data;
 
-
-
 @Data
 public class LoginRequest {
 
