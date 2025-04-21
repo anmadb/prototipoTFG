@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar/Navbar";
 import { useState } from "react";
-import './CreatePost.css'
+import '../styles/CreatePost.css';
 
 export default function CreatePost() {
     const [preview, setPreview] = useState(null);
