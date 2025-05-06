@@ -1,27 +1,24 @@
 import './App.css'
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from './pages/home.jsx'
-import CreatePost from './pages/CreatePost.jsx'
-import SingUp from './pages/SingUp.jsx';
-import Login from './pages/Login.jsx';
-
+import Home from './components/pages/Home.jsx'
+import CreatePost from './components/pages/CreatePost.jsx'
+import RegisterPage from './components/pages/RegisterPage.jsx'
+import LoginPage from './components/pages/LoginPage.jsx';
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/h" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/createPost" element={<CreatePost />} />
-        <Route path="/SingUp" element={<SingUp />} />
-        <Route path="/" element={<Login />} />
+        <Route path="/Register" element={<RegisterPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/Login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
-
   )
 }
 
-export default App
+export default App;

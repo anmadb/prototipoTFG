@@ -1,4 +1,6 @@
-import Navbar from "../components/navbar/Navbar";
+
+import Navbar from "../navbar/Navbar.jsx"; 
+import "../navbar/Navbar.css";
 import { useState } from "react";
 import './CreatePost.css'
 

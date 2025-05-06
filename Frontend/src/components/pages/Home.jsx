@@ -1,5 +1,5 @@
-import Map from "../components/map/map";
-import Navbar from "../components/navbar/Navbar";
+import Map from "../map/Map.jsx"
+import Navbar from "../navbar/Navbar.jsx"; 
 
 export default function Home() {
 
