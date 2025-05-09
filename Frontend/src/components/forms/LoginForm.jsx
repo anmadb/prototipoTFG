@@ -20,7 +20,9 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api/auth/login', formData);
+      await axios.post('http://localhost:8080/api/auth/login', formData, {
+        withCredentials: "true"
+      });
 
       // Mensaje visual de éxito
       const messageDiv = document.createElement('div');

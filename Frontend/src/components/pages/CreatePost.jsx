@@ -58,67 +58,74 @@ export default function CreatePost() {
             alert('Error: ' + error.message);
         }
     };
+    const islogin = false
 
-    return (
-        <>
-            <Navbar/>
-            <main className="content-w-navbar">
-                <h1>Create Post</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="imagen">Imagen:</label>
-                        <input
-                            type="file"
-                            id="imagen"
-                            name="imagen"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            required
-                        />
-                        {preview && (
-                            <div className="image-preview">
-                                <img src={preview} alt="Vista previa" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                    </div>
+    if (!islogin) {
+        window.location.href = '/login';
+    } else {
+        return (
+            <>
+                <Navbar/>
+                <main className="content-w-navbar">
+                    <h1>Create Post</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="imagen">Imagen:</label>
+                            <input
+                                type="file"
+                                id="imagen"
+                                name="imagen"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                required
+                            />
+                            {preview && (
+                                <div className="image-preview">
+                                    <img src={preview} alt="Vista previa" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                </div>
+                            )}
+                        </div>
+    
+                        <div className="form-group">
+                            <label htmlFor="descripcion">Descripción:</label>
+                            <textarea
+                                id="descripcion"
+                                name="descripcion"
+                                required
+                                rows="4"
+                            />
+                        </div>
+    
+                        <div className="form-group">
+                            <label htmlFor="latitud">Latitud:</label>
+                            <input
+                                type="number"
+                                id="latitud"
+                                name="latitud"
+                                required
+                                step="any"
+                                placeholder="Ej: 40.7128"
+                            />
+                        </div>
+    
+                        <div className="form-group">
+                            <label htmlFor="longitud">Longitud:</label>
+                            <input
+                                type="number"
+                                id="longitud"
+                                name="longitud"                          
+                                required
+                                step="any"
+                                placeholder="Ej: -74.0060"
+                            />
+                        </div>
+    
+                        <button type="submit" className="submit-btn">Enviar</button>
+                    </form>
+                </main>
+            </>
+        );
+    }
 
-                    <div className="form-group">
-                        <label htmlFor="descripcion">Descripción:</label>
-                        <textarea
-                            id="descripcion"
-                            name="descripcion"
-                            required
-                            rows="4"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="latitud">Latitud:</label>
-                        <input
-                            type="number"
-                            id="latitud"
-                            name="latitud"
-                            required
-                            step="any"
-                            placeholder="Ej: 40.7128"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="longitud">Longitud:</label>
-                        <input
-                            type="number"
-                            id="longitud"
-                            name="longitud"                          
-                            required
-                            step="any"
-                            placeholder="Ej: -74.0060"
-                        />
-                    </div>
-
-                    <button type="submit" className="submit-btn">Enviar</button>
-                </form>
-            </main>
-        </>
-    );
+    
 }

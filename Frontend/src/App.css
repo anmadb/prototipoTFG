@@ -1,6 +1,6 @@
 .content-w-navbar {
     position: absolute;
-    width: calc(100% - 150px);
+    width: calc(100% - 200px);
     transform: translateX(150px);
 }
 
