@@ -19,6 +19,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public User registerUser(User user){ // este metodo hace todo el trabajo cuando un usuario se registra, recibe los datos del usuario
 
         if(userRepository.existsByUsername(user.getUsername())){
@@ -52,7 +57,7 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta.");
         }
-    
+        
         return user;
     }
     

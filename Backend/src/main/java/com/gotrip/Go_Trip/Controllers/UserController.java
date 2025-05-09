@@ -14,6 +14,8 @@ import com.gotrip.Go_Trip.Services.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseCookie;
+
 @RestController //le dice a spring esta clase es un controlador web que respond epeticiones HTTP con datos
 @RequestMapping("/api/auth") //todas las rutas de esta clase empezaran asi
 @CrossOrigin(origins = "*", allowCredentials = "false")
@@ -22,6 +24,10 @@ public class UserController {
 
 
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     
@@ -48,7 +54,18 @@ public class UserController {
         
         try {
             User user = userService.login(request.getUsernameOrEmail(), request.getPassword());
-            return ResponseEntity.ok("¡Hola de nuevo viajer@: " + user.getUsername() + "!");
+            
+            ResponseCookie cookie = ResponseCookie.from("mi_cookie", "valor_de_la_cookie")
+                    .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(3600)
+                .sameSite("Lax")
+                .build();
+
+            return ResponseEntity.ok()
+                        .header("Set-Cookie", cookie.toString())
+                        .body("¡Hola de nuevo viajer@: " + user.getUsername() + "!");
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
