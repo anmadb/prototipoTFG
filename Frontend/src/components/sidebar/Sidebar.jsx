@@ -4,7 +4,7 @@ import { FaUser, FaPlusCircle, FaNewspaper, FaMapMarkedAlt, FaShieldAlt, FaCog, 
 import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../assets/logo-gotrip.png";
-import NewsPopup from "../../news/NewsPopup";
+import NewsPopup from "../news/NewsPopup";
 const Sidebar = () => {
   const [showNews, setShowNews] = useState(false);
   const navigate = useNavigate();
