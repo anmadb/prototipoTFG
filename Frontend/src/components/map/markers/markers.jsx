@@ -36,16 +36,16 @@ export default function Markers() {
   }
 
   return (
-    // TODO: Finished popup template
-    // TODO: Separete the marker component into the user component(part of the popup template) and the post component(also popup template)
+
+    
     <>
       {posts && posts.map(post => (
         // eslint-disable-next-line react/jsx-key
         <Marker position={[post.latitude, post.longitude]} icon={customIcon}>
           <Popup className='popup'
-          minWidth={70}
-          maxWidth={400}
-          closeButton={false} >
+            minWidth={200}  
+            maxWidth={600}  
+            closeButton={false} >
             {post.img && (
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}
