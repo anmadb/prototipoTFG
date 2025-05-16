@@ -22,6 +22,9 @@ const LoginForm = () => {
     try {
       await axios.post('http://localhost:8080/api/auth/login', formData);
 
+      const username = response.data.username || formData.usernameOrEmail;
+      localStorage.setItem("username", username);
+
       // Mensaje visual de éxito
       const messageDiv = document.createElement('div');
       messageDiv.innerText = "¡Inicio de sesión exitoso!";
