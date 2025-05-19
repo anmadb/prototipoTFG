@@ -1,8 +1,12 @@
 package com.gotrip.Go_Trip.Controllers;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+/* import org.springframework.web.bind.annotation.CrossOrigin; */ // Unused. No se si funciona
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +16,25 @@ import com.gotrip.Go_Trip.DTO.LoginRequest;
 import com.gotrip.Go_Trip.Entities.User;
 import com.gotrip.Go_Trip.Services.UserService;
 
+import com.gotrip.Go_Trip.Utilities.JwtUtilities;
+
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseCookie;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 @RestController //le dice a spring esta clase es un controlador web que respond epeticiones HTTP con datos
-@RequestMapping("/api/auth") //todas las rutas de esta clase empezaran asi
-@CrossOrigin(origins = "*", allowCredentials = "false")
+@RequestMapping("/api") //todas las rutas de esta clase empezaran asi
 @RequiredArgsConstructor
 public class UserController {
 
 
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     
@@ -29,7 +42,7 @@ public class UserController {
      * El RequestBody dice: el JSON lo convierto en un objeto User.
      * El ResponseEntity permite devolver una respuesta personalizada
      */
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<?> register(@RequestBody User user){
 
         /* Si todo va bien llama a registerUser (UserService) y devuelve 200 OK con el usuariola clas
@@ -43,12 +56,27 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         
         try {
             User user = userService.login(request.getUsernameOrEmail(), request.getPassword());
-            return ResponseEntity.ok("¡Hola de nuevo viajer@: " + user.getUsername() + "!");
+
+            JwtUtilities jwtUtilities = new JwtUtilities();
+
+            String token = jwtUtilities.generateToken(user.getId().toString(), user.getUsername(), user.getEmail());
+
+            ResponseCookie cookie = ResponseCookie.from("isLogged", token)
+                .httpOnly(false)
+                .secure(false)
+                .path("/")
+                .maxAge(24 * 60 * 60) // Seconds (24h)
+                .sameSite("Lax")
+                .build();
+
+            return ResponseEntity.ok()
+                        .header("Set-Cookie", cookie.toString())
+                        .body("¡Hola de nuevo viajer@: " + user.getUsername() + "!");
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
@@ -56,4 +84,44 @@ public class UserController {
    
     }
     
+    @PostMapping("/auth/isLogged")
+    public ResponseEntity<?> isLogged(@RequestBody String token) {
+        
+        JwtUtilities jwtUtilities = new JwtUtilities();
+        try {
+
+        // Parse the token to get the claims
+        Map<String, Object> claims = jwtUtilities.parseToken(token);
+
+        // Check if token is expired (parseToken would throw exception if expired,
+        long expirationTime = ((Number) claims.get("exp")).longValue() * 1000;
+        Date expirationDate = new Date(expirationTime);
+
+        if (expirationDate.before(new Date())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expired");
+        }
+
+        // Token is valid - return user information
+        Map<String, String> response = new HashMap<>();
+        response.put("res", "true");
+        response.put("id", (String) claims.get("id"));
+        response.put("username", (String) claims.get("username"));
+        response.put("email", (String) claims.get("email"));
+        
+
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("res", "false");
+        response.put("message", "Invalid token" + e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+    }
+    
+    @GetMapping("/profile/{id}")
+    public Map<String, String> getUserProfile(@PathVariable Long id) {
+
+    Map<String, String> userProfile = userService.getUserProfile(id);
+    return userProfile;
+    }
 }

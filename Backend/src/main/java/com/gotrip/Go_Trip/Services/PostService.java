@@ -25,6 +25,10 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     //- Methods
 
     public List<Post> getPosts() {
@@ -35,12 +39,16 @@ public class PostService {
         return postRepository.getPostById(id);
     }
 
+    public List<Post> getPostByUserId(Long id) {
+        return postRepository.getPostByUserId(id);
+    }
+
 
     @Transactional
     public Post addPost(Long userId, MultipartFile img, String description, float latitude, float longitude) throws IOException {
 
         String imgName = saveImage(img, userId); 
-        
+
         Post post = new Post();
         post.setUserId(userId);
         post.setImg(imgName);
@@ -53,7 +61,7 @@ public class PostService {
     }
 
     private String saveImage(MultipartFile img, Long userId) throws IOException {
-        String imgName = userId + "_" + System.currentTimeMillis() + ".jpg"; // Genera un nombre único para la imagen
+        String imgName = userId + "" + System.currentTimeMillis() + ".jpg"; // Genera un nombre único para la imagen
         String path = "src/main/resources/static/Img/Posts/" + imgName; // Ruta donde se guardará la imagen
 
         try (FileOutputStream fos = new FileOutputStream(path)) {
@@ -63,7 +71,7 @@ public class PostService {
         return imgName;
     }
 
-    
+
     @Transactional
 public void deletePostsById(Long id) {
      // Obtener el nombre de la imagen

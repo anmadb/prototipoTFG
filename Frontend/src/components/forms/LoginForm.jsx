@@ -20,10 +20,11 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api/auth/login', formData);
+      await axios.post('http://localhost:8080/api/auth/login', formData, {
+        withCredentials: "true"
+      });
 
-      const username = response.data.username || formData.usernameOrEmail;
-      localStorage.setItem("username", username);
+    
 
       // Mensaje visual de éxito
       const messageDiv = document.createElement('div');
@@ -41,7 +42,7 @@ const LoginForm = () => {
 
       setTimeout(() => {
         document.body.removeChild(messageDiv);
-        navigate('/home');
+       window.location.href = '/home';
       }, 1000);
 
     } catch (error) {

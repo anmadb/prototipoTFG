@@ -1,10 +1,13 @@
 
 import Navbar from "../navbar/Navbar.jsx"; 
 import "../navbar/Navbar.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getCookie, checkIsLogged } from "../../scripts/logged.js";
 import './CreatePost.css'
 
 export default function CreatePost() {
+    const [isLogged, setIsLogged] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [preview, setPreview] = useState(null);
 
     const handleImageChange = (e) => {
@@ -28,7 +31,8 @@ export default function CreatePost() {
             if (!imageFile) {
                 throw new Error("Debes seleccionar una imagen");
             }
-    
+            
+            formData.append('userId', userId);
             formData.append('image', imageFile);
             formData.append('description', document.getElementById('descripcion').value);
             formData.append('latitude', document.getElementById('latitud').value);
@@ -58,6 +62,20 @@ export default function CreatePost() {
             alert('Error: ' + error.message);
         }
     };
+
+    useEffect(() => {
+        const token = getCookie('isLogged');
+        checkIsLogged(token)
+            .then(res => res.json())
+            .then(login => {
+                if (login.res === "false") {
+                    setTimeout(() =>window.location.href = "/" , 300)
+                } else {
+                    setUserId(login.id);setTimeout(() => setIsLogged(login.res), 200)
+                }
+            })
+
+    } , [])
 
     return (
         <>

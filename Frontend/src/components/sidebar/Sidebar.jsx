@@ -1,3 +1,4 @@
+
 // src/components/sidebar/Sidebar.jsx
 import React, { useState } from "react";
 import { FaUser, FaPlusCircle, FaNewspaper, FaMapMarkedAlt, FaShieldAlt, FaCog, FaSignOutAlt } from "react-icons/fa";
@@ -24,7 +25,7 @@ const Sidebar = () => {
         <li><FaUser className="icon" /> Perfil</li>
 
         <li>
-          <Link to="/create-post" className="menu-link">
+          <Link to="/createPost" className="menu-link">
             <FaPlusCircle className="icon" /> Nueva Publicación
           </Link>
         </li>

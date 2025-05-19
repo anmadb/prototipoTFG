@@ -7,6 +7,7 @@ import Markers from './markers/markers';
 
 export default function Map(props) {
 
+    const userId = props.userId;
     const defaultValues = {
       centeredPosition: [20, 0],
       minZoom: 2.45,
@@ -25,7 +26,7 @@ export default function Map(props) {
         >
           <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" noWrap={true} />
           
-          <Markers></Markers>
+          <Markers userId={userId}></Markers>
 
         </MapContainer>
     </>

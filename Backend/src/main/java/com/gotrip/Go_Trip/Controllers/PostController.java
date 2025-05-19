@@ -35,11 +35,16 @@ public class PostController {
         return postService.getPosts();
     }
 
-    //- http://localhost:8080/api/posts/{id}
+    //- http://localhost:8080/api/posts/%7Bid%7D
 
     @GetMapping("/{id}")
     public Post getPostById(@PathVariable Long id) {
         return postService.getPostById(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public List<Post> getPostByUserId(@PathVariable Long id) {
+        return postService.getPostByUserId(id);
     }
 
     @GetMapping(value = "/img/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
@@ -56,15 +61,18 @@ public class PostController {
     }
 
     @PostMapping()
-    public void addPost( //@RequestParam("userId") Long userId,
+    public void addPost( @RequestParam("userId") Long userId,
             @RequestParam("image") MultipartFile image,
             @RequestParam("description") String description,
             @RequestParam("latitude") float latitude,
             @RequestParam("longitude") float longitude) throws IOException {
 
-        long userId = 1;
-
-        postService.addPost(userId, image, description, latitude, longitude);
+        /* long userId = 1; */
+        try {
+            postService.addPost(userId, image, description, latitude, longitude);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 

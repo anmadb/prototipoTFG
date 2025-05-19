@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react';
 
 import './style.css'
 
-export default function Markers() {
+export default function Markers(props) {
+
+  const userId = props.userId;
 
   // * Get Posts data
   const [posts, setPosts] = useState(null)
   useEffect(() => {
-      fetch('http://localhost:8080/api/posts')
+      fetch(`http://localhost:8080/api/posts/user/${userId}`)
         .then(res => {return res.json()})
         .then(data => {
           console.log(data)
