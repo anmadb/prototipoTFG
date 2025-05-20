@@ -25,7 +25,7 @@ const Sidebar = () => {
         <li><FaUser className="icon" /> Perfil</li>
         <li>
           <Link to="/home" className="menu-link">
-            <FaMapMarkedAlt className="icon" /> Map
+            <FaMapMarkedAlt className="icon" /> Inicio
           </Link>
         </li>
         <li>
