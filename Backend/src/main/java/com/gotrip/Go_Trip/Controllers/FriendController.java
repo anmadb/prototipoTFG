@@ -18,7 +18,7 @@ public class FriendController {
     @Autowired
     private FriendService friendService;
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/{id}")
     public List<Long> getFriends(@PathVariable Long id) {
         return friendService.getFriends(id);
     }
