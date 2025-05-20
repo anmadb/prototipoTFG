@@ -7,8 +7,8 @@ import './style.css'
 
 export default function Markers(props) {
 
-  const userId = props.userId;
-
+  const userId = props.user.id;
+  const userName = props.user.username;
   // * Get Posts data
   const [posts, setPosts] = useState(null)
   useEffect(() => {
@@ -48,13 +48,13 @@ export default function Markers(props) {
             minWidth={200}  
             maxWidth={600}  
             closeButton={false} >
+               <h3>{userName}</h3>
             {post.img && (
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}
             <p>{post.description}</p>
             
-            <button onClick={(e) => {e.preventDefault; deletePost(post.id)}}>Delete</button>
-            
+            {userId == post.userId ? <button onClick={(e) => {e.preventDefault; deletePost(post.id)}}>Delete</button> : null}
           </Popup>
         </Marker>
       ))}

@@ -23,7 +23,11 @@ const Sidebar = () => {
 
       <ul className="menu">
         <li><FaUser className="icon" /> Perfil</li>
-
+        <li>
+          <Link to="/home" className="menu-link">
+            <FaMapMarkedAlt className="icon" /> Map
+          </Link>
+        </li>
         <li>
           <Link to="/createPost" className="menu-link">
             <FaPlusCircle className="icon" /> Nueva Publicación
@@ -32,8 +36,7 @@ const Sidebar = () => {
 
         <li onClick={() => setShowNews(!showNews)}>
           <FaNewspaper className="icon" /> Noticias
-        </li>
-        <li><FaMapMarkedAlt className="icon" /> Nuevo Viaje</li>
+        </li>       
         <li>
           <Link to="/privacy" className="menu-link">
             <FaShieldAlt className="icon" /> Privacidad

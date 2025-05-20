@@ -9,7 +9,7 @@ import { getCookie, checkIsLogged } from "../../scripts/logged";
 const Home = () => {
 
   const [isLogged, setIsLogged] = useState(null);
-    const [userId, setUserId] = useState(0);
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Home = () => {
                 }
                 else {
                   console.log(login)
-                    setUserId(login.id);setIsLogged(login.res);setIsLoading(false);
+                    setUser(login);setIsLogged(login.res);setIsLoading(false);
                 }
             })
 
@@ -40,7 +40,7 @@ const Home = () => {
                         position={null}
                         zoom={null}
                         scroll={null}
-                        userId={userId}
+                        user={user}
                     />
             )}
         </div>
