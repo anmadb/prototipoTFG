@@ -48,7 +48,7 @@ export default function Markers(props) {
             minWidth={200}  
             maxWidth={600}  
             closeButton={false} >
-               <h3>{userName}</h3>
+            <h3>@{post.userId == userId ? userName : null}</h3>
             {post.img && (
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}

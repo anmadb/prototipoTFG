@@ -22,7 +22,6 @@ import com.gotrip.Go_Trip.Utilities.JwtUtilities;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
-import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController //le dice a spring esta clase es un controlador web que respond epeticiones HTTP con datos
 @RequestMapping("/api") //todas las rutas de esta clase empezaran asi
-@RequiredArgsConstructor
+
 public class UserController {
 
 
