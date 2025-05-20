@@ -48,17 +48,16 @@ export default function Privacy() {
             </select>
           </div>
 
-
-          <div className="privacy-option danger">
-            <label>Eliminar cuenta permanentemente</label>
-            <button>Eliminar cuenta</button>
-          </div>
-
-        </div>
-
         <button className="save-btn" onClick={handleSaveClick}>
           Guardar configuración
         </button>
+          
+
+        </div>
+
+        <div className="privacy-option danger">
+            <button>Eliminar cuenta</button>
+          </div>
         
       </div>
     </div>

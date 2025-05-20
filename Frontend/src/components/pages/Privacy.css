@@ -57,6 +57,7 @@
   background-color: #f56565;
   color: white;
   font-weight: bold;
+  margin-top: 2rem;
 }
 
 .privacy-option.danger label {
