@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 /* import org.springframework.web.bind.annotation.CrossOrigin; */ // Unused. No se si funciona
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +19,13 @@ import com.gotrip.Go_Trip.Services.UserService;
 
 import com.gotrip.Go_Trip.Utilities.JwtUtilities;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseCookie;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -124,4 +129,37 @@ public class UserController {
     Map<String, String> userProfile = userService.getUserProfile(id);
     return userProfile;
     }
+
+
+    @DeleteMapping("/auth/delete-account")
+public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String authHeader) {
+    try {
+        // Valida el formato del header "Bearer token"
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no proporcionado o formato inválido");
+        }
+
+        // Extrae el token (elimina "Bearer ")
+        String token = authHeader.substring(7);
+        
+        // Usa tu JwtUtilities para validar y extraer el username
+        JwtUtilities jwtUtilities = new JwtUtilities();
+        String username = jwtUtilities.getUsernameFromToken(token);
+
+        // Elimina el usuario
+        userService.deleteUserByUsername(username);
+
+        // Respuesta exitosa
+        return ResponseEntity.ok().body("Cuenta eliminada correctamente");
+
+    } catch (ExpiredJwtException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expirado");
+    } catch (SignatureException | MalformedJwtException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido");
+    } catch (RuntimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().body("Error interno: " + e.getMessage());
+    }
+}
 }
