@@ -34,7 +34,12 @@ const Sidebar = () => {
           <FaNewspaper className="icon" /> Noticias
         </li>
         <li><FaMapMarkedAlt className="icon" /> Nuevo Viaje</li>
-        <li><FaShieldAlt className="icon" /> Privacidad</li>
+        <li>
+          <Link to="/privacy" className="menu-link">
+            <FaShieldAlt className="icon" /> Privacidad
+          </Link>
+        </li>
+
         <li><FaCog className="icon" /> Configuración</li>
 
         <li onClick={handleLogout} className="menu-link" style={{ cursor: "pointer" }}>
