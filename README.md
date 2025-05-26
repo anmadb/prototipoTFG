@@ -1,167 +1,102 @@
-# <span style="color: #00bfff; text-align: center; font-size: 50px">Go Trip 🌎</span>
+# 🌍 GoTrip
 
-- [1. Replicar proyecto](#1-replicar-proyecto)
-- [2. Back](#2-back)
-- [3. Front](#3-front)
+**Una red social interactiva para compartir tus viajes en un mapa dinámico**
 
 ---
 
-## <span id="1-replicar-proyecto" style="color: #00bfff">1. Replicar proyecto 🧱</span>
+## 📝 Descripción general
 
-### <span style="color:#00e2ae">1.1 Clonar repositorio 🛠</span>
+**GoTrip** es una aplicación web que permite a los usuarios compartir sus experiencias de viaje a través de una red social interactiva basada en mapas. Diseñada para amantes de los viajes, la plataforma permite subir imágenes con localización geográfica, visualizar en un mapa las publicaciones propias y de amigos, intercambiar opiniones mediante chat, y planificar futuros destinos. Es una herramienta social y visual para descubrir lugares y conectar con otros viajeros de forma intuitiva.
 
-```shell
-mkdir Go_Trip
+---
 
-cd Go_Trip
+## 🎯 Objetivo del proyecto
 
-git clone https://github.com/KuKe-dev/GoTrip.git
-git branch -M main
-```
-### <span style="color:#00e2ae">1.2 Instalar dependencias ⏬</span>
+El objetivo principal es facilitar una forma atractiva y colaborativa de compartir experiencias de viaje, crear una comunidad digital para viajeros y ayudar en la planificación de viajes gracias al conocimiento compartido por otros usuarios.
 
-```shell
-cd Backend
-mvn clean install
+> **Ámbito:** Social / Tecnológico  
+> **Contexto académico:** Trabajo de Fin de Grado (TFG)
 
-cd ../Frontend
+---
+
+## ⚙️ Funcionalidades principales
+
+- ✅ Registro y login de usuarios
+- ✅ Subida de imágenes con geolocalización
+- ✅ Visualización de publicaciones propias y de amigos en un mapa interactivo
+- ✅ Comentarios y experiencias personales sobre lugares visitados
+- ✅ Chat entre usuarios para compartir consejos de viaje
+- ✅ Noticias actualizadas sobre destinos turísticos
+- ✅ Planificador de futuros viajes (fechas, lugares, monumentos, restaurantes…)
+- ✅ Perfil editable y configuración de privacidad
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **Frontend:** React, JavaScript, HTML5, CSS3, Vite
+- **Backend:** Java + Spring Boot
+- **Base de datos:** SQL
+- **Herramientas y servicios:** Postman, Docker, API de mapas, GitHub, Cookies
+
+---
+
+## 🚀 Instalación y ejecución
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/anmadb/prototipoTFG.git
+cd prototipoTFG
+
+2. Base de datos
+Ejecuta el script SQL disponible en la carpeta base-de-datos para crear la base de datos local.
+
+3. Backend
+bash
+Copiar
+Editar
+cd backend
+# Abre el proyecto en tu IDE (IntelliJ, Eclipse…)
+# Ejecuta la aplicación Spring Boot desde el archivo principal
+
+4. Frontend
+bash
+Copiar
+Editar
+cd frontend
 npm install
-```
-
-### <span style="color:#00e2ae">1.3 Ejecutar proyectos ▶</span>
-
-En el Front está instalada una dependencia llamada `concurrently`. **Esto permite ejecutar los dos proyectos al mismo tiempo desde la terminal**.
-
-En el Frontend se ejecuta el comando `vite` y en el Backend se ejecuta el comando `mvn spring-boot:run`.
-
-La dependencia se encuentra **instalada en el Frontend**:
-
-```shell
-cd Frontend
 npm run dev
 
-Cuando se termine de ejecutar aparecerá esto:
+5. Acceder a la aplicación
+Abre tu navegador en:
+http://localhost:5173
 
-Server is running on: http://localhost:8080
-Client is running on: http://localhost:5173
-```
-
-
-## <span id="2-back" style="color: #00bfff">2. Back ☕</span>
-
-### <span style="color:#00e2ae">2.1 Estructura General de la API ⚙</span>
-
-**Back**
-
-│<br>
-│─ 📌 **Entities** (Capa de Modelo): representan tablas en la base de datos.<br>│<br>
-│─ 📌 **Repositories** (Capa de Persistencia): Los repositorios interactúan directamente<br>│ con la base de datos. Implementan operaciones CRUD y consultas personalizadas<br>│ usando anotaciones como `@Query`.<br>│<br>
-│─ 📌 **Services**: Los servicios orquestan operaciones entre múltiples componentes.<br>│ Actúan como <b>intermediarios</b> entre los controladores y la capa de persistencia,<br>│ evitando que la <b>lógica compleja</b> contamine los controladores o los repositorios.<br>│<br>
-│─ 📌 **Controllers**: Los controladores manejan las <b>solicitudes HTTP</b> entrantes y las<br>│ <b>respuestas</b> salientes. Su responsabilidad principal es validar los datos de entrada,<br>│ delegar la lógica de negocio a la capa de servicio.<br>│<br>▼
-
-**Client**
+📁 Estructura del proyecto
+csharp
+Copiar
+Editar
+prototipoTFG/
+│
+├── backend/              # Código del servidor (Spring Boot)
+├── frontend/             # Interfaz de usuario (React)
+├── base-de-datos/        # Script SQL para la base de datos
+├── README.md             # Este documento
 
 
-### <span style="color:#00e2ae">2.2 Ejemplos</span>
+🧪 Pruebas y ejecución
+El proyecto se ejecuta completamente en local.
 
-##### <span style="color:#d48300">Ejemplo Entity</span>
+Se requiere tener instalados: Node.js, npm, Java JDK, y un entorno SQL.
 
-```java
-@Entity <-- Declaración de la entidad
-@Table(name = "Posts") <-- Nombre de la tabla a la que se hace referencia
-public class Post {
+No se han desplegado entornos en la nube por el momento.
 
-    @Id <-- Declaración de la clave primaria
-    @GeneratedValue(strategy = GenerationType.IDENTITY) <-- Generación automática de la clave primaria
-    private Long id;
+❓ Preguntas frecuentes (FAQ)
+🔍 No se carga el mapa:
+Verifica tu conexión a Internet y que la API esté correctamente configurada.
 
-    @Column( <-- Declaración de la columna
-        name = "user-id",
-        nullable = false
-    )
-    private Long userId;
+💾 El backend no arranca:
+Comprueba que el puerto esté libre y que la base de datos esté iniciada.
 
-    @Column(
-            nullable = false
-    )
-    private String img;
-
-    @Column(
-            length = 250,
-            nullable = false
-    )
-    private String description;
-    ...
-}
-```
-
-##### <span style="color:#d48300">Ejemplo Repository</span>
-
-```java
-@Repository <-- Declaración del repositorio
-public interface PostRepository extends JpaRepository<Post, Long> {
-
-    @Query("SELECT p FROM Post") <-- Consulta
-    List<Post> getPosts();
-
-    @Query("SELECT * FROM Post", nativeQuery = true) <-- Consulta nativa
-    List<Post> getPosts();
-    
-    @Query("SELECT * FROM Post WHERE user-id = :userId", nativeQuery = true)
-    List<Post> findPostsByUserId(@Param("userId") Long userId);
-
-}
-```
-
-##### <span style="color:#d48300">Ejemplo Service</span>
-
-```java
-@Service <-- Declaración del servicio
-public class PostService {
-
-    @Autowired <-- Inyección de dependencias    
-    private PostRepository postRepository;
-
-    public List<Post> getPosts() {
-        /* Si se tiene que hacer alguna lógica adicional, se realiza aquí */
-        return postRepository.getPosts();
-    }
-}
-```
-
-##### <span style="color:#d48300">Ejemplo Controller</span>
-
-```java
-@RestController <-- Declaración del controlador
-@RequestMapping("/api") <-- Declaración de la ruta
-public class PostController {
-
-    @Autowired <-- Inyección de dependencias
-    private PostService postService;
-
-    @GetMapping("/posts") <-- Declaración de la ruta
-    public List<Post> getPosts() {
-        return postService.getPosts();
-    }
-}
-```
-### <span style="color:#00e2ae">2.3 Endpoints 📲</span>
-
-1. <b>Raíz:</b>  
-   <code style="color:#32d6ff">http://localhost:8080/</code> - Punto de entrada principal de la API
-
-2. <b>Posts:</b>
-   - <code style="color:#32d6ff">api/posts</code> - Endpoint principal para operaciones con posts
-   - <code style="color:#32d6ff">api/posts/{id}</code> - Endpoint para operaciones con un post específico
-   - <code style="color:#32d6ff">api/posts/img/{id}</code> - Endpoint específico para imágenes asociadas a posts
-
-3. <b>Users:</b>
-   - <code style="color:#32d6ff">api/users</code> - Endpoint para operaciones con usuarios
-   - <code style="color:#32d6ff">api/users/{id}</code> - Endpoint para operaciones con un usuario específico
-
-4. <b>Autenticación:</b>
-   - <code style="color:#32d6ff">auth/login</code> - Endpoint para iniciar sesión
-   - <code style="color:#32d6ff">auth/islogged</code> - Endpoint para verificar autenticación
-
-## <span id="3-front" style="color: #00bfff">3. Front ⚛</span>
-
+📂 ¿Dónde están los datos iniciales?
+En la carpeta base-de-datos encontrarás el script SQL para crear la estructura de la base
