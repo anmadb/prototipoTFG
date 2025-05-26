@@ -9,12 +9,12 @@ export default function Markers(props) {
 
   const userId = props.user.id;
   const userName = props.user.username;
+  const avatar = props.user.avatar;
   // * Get Posts data
   const [posts, setPosts] = useState(null)
   const [friends, setFriends] = useState(null)
   const [friendsPosts, setFriendsPosts] = useState(null)
   const [friendsProfile, setFriendsProfile] = useState(null)
-
 
   useEffect(() => {
       fetch(`http://localhost:8080/api/posts/user/${userId}`)
@@ -31,17 +31,7 @@ export default function Markers(props) {
           setFriends(data)
         })
 
-        /* friends && friends.map(friend => {
-          fetch(`http://localhost:8080/api/posts/user/${friend}`)
-          .then(res => {return res.json()})
-          .then(data => {
-            console.log(data)
-            setFriendsPosts(data)
-          })
-        }) */
-
-
-  }, [])
+  }, [userId])
 
 
 
@@ -57,8 +47,20 @@ export default function Markers(props) {
       const allPosts = postsArrays.flat();
       setFriendsPosts(allPosts);
     });
+    Promise.all(
+      friends.map(friendId =>
+        fetch(`http://localhost:8080/api/profile/${friendId}`)
+          .then(res => res.json()) 
+      )
+    ).then(profilesArrays => {
+      // Flatten array of arrays
+      const allProfiles = profilesArrays.flat();
+      setFriendsProfile(allProfiles);
+      console.log(allProfiles)
+    });
   }
 }, [friends]);
+
 
 
 
@@ -85,6 +87,7 @@ export default function Markers(props) {
     
   }
 
+  
   return (
 
     
@@ -96,7 +99,7 @@ export default function Markers(props) {
             minWidth={200}  
             maxWidth={600}  
             closeButton={false} >
-            <h3>@{userName}</h3>
+            <h3>@You</h3>
             {post.img && (
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}
@@ -107,15 +110,18 @@ export default function Markers(props) {
         </Marker>
       ))}
 
-
-      {friendsPosts && friendsPosts.map(post => (
+      {friendsPosts && friendsPosts.map(post => {console.log(post);
+        
+        
+        return(
         // eslint-disable-next-line react/jsx-key
         <Marker position={[post.latitude, post.longitude]} icon={customIconFriends}>
           <Popup className='popup'
             minWidth={200}  
             maxWidth={600}  
             closeButton={false} >
-            <h3>@{fetch(`http://localhost:8080/api/profile/${post.userId}`).then(res => res.json()).then(data =>{return data.username})}</h3>
+            <img className='imgProfile' src={friendsProfile && friendsProfile.map(profile => {if (parseInt(profile.id) === post.userId) {return `http://localhost:8080/api/profile/img/${profile.avatar}`}})[0]} style={{borderRadius: '50%', width: '50px', height: '50px'}}/>
+            <h3>@{friendsProfile && friendsProfile.map(profile => {if (parseInt(profile.id) === post.userId) {return profile.username}})}</h3>
             {post.img && (
               <img className='imgPost' src={`http://localhost:8080/api/posts/img/${post.img}`} />
             )}
@@ -124,7 +130,8 @@ export default function Markers(props) {
             
           </Popup>
         </Marker>
-      ))}
+        )
+})}
 
 
 

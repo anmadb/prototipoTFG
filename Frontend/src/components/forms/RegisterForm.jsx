@@ -6,23 +6,28 @@ import './RegisterForm.css';
 const RegisterForm = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    avatar: '',
-    bio: ''
-  });
+  
+
 
   const handleChange = (e) => {
-    setFormData({
+    /* setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    });
+    }); */
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    const avatarFile = document.getElementById('avatar').files[0];
+
+    formData.append('username', document.getElementById('username').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('password', document.getElementById('password').value);
+    formData.append('avatar', avatarFile);
+    formData.append('bio', document.getElementById('bio').value);
+
     try {
       await axios.post('http://localhost:8080/api/auth/register', formData);
       
@@ -78,45 +83,45 @@ const RegisterForm = () => {
       <h2>Crear Cuenta</h2>
 
       <input
+        id="username"
         type="text"
         name="username"
         placeholder="Nombre de usuario"
-        value={formData.username}
         onChange={handleChange}
         required
       />
 
       <input
+        id="email"
         type="email"
         name="email"
         placeholder="Correo electrónico"
-        value={formData.email}
         onChange={handleChange}
         required
       />
 
       <input
+        id="password"
         type="password"
         name="password"
         placeholder="Contraseña"
-        value={formData.password}
         onChange={handleChange}
         required
       />
 
       <input
-        type="text"
+        id="avatar"
+        type="file"
         name="avatar"
         placeholder="URL del avatar (opcional)"
-        value={formData.avatar}
         onChange={handleChange}
       />
 
       <textarea
+        id="bio"
         name="bio"
         placeholder="Tu bio (opcional)"
         rows="3"
-        value={formData.bio}
         onChange={handleChange}
       />
 

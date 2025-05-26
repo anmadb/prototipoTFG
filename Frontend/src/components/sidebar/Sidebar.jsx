@@ -1,4 +1,3 @@
-
 // src/components/sidebar/Sidebar.jsx
 import React, { useState } from "react";
 import { FaUser, FaPlusCircle, FaNewspaper, FaMapMarkedAlt, FaShieldAlt, FaCog, FaSignOutAlt } from "react-icons/fa";
@@ -22,7 +21,11 @@ const Sidebar = () => {
       </div>
 
       <ul className="menu">
-        <li><FaUser className="icon" /> Perfil</li>
+        <li>
+          <Link to="/profile" className="menu-link">
+            <FaUser className="icon" /> Perfil
+          </Link>
+        </li>
         <li>
           <Link to="/home" className="menu-link">
             <FaMapMarkedAlt className="icon" /> Inicio

@@ -1,10 +1,14 @@
 package com.gotrip.Go_Trip.Controllers;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 /* import org.springframework.web.bind.annotation.CrossOrigin; */ // Unused. No se si funciona
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +31,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController //le dice a spring esta clase es un controlador web que respond epeticiones HTTP con datos
 @RequestMapping("/api") //todas las rutas de esta clase empezaran asi
@@ -47,13 +53,19 @@ public class UserController {
      * El ResponseEntity permite devolver una respuesta personalizada
      */
     @PostMapping("/auth/register")
-    public ResponseEntity<?> register(@RequestBody User user){
+    public ResponseEntity<?> register(
+                                @RequestParam("username") String username,
+                                @RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                @RequestParam("avatar") MultipartFile avatar,
+                                @RequestParam("bio") String bio
+                            ) throws IOException {
 
         /* Si todo va bien llama a registerUser (UserService) y devuelve 200 OK con el usuariola clas
          * Si ocurre un error captura la excepción y devuelve 400 Bad Request conn el mensaje de error
          */
         try{
-            User newUser = userService.registerUser(user);
+            User newUser = userService.registerUser(username, email, password, avatar, bio);
             return ResponseEntity.ok(newUser);
         }catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -127,6 +139,19 @@ public class UserController {
 
     Map<String, String> userProfile = userService.getUserProfile(id);
     return userProfile;
+    }
+
+    @GetMapping(value = "/profile/img/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<Resource> getImage(@PathVariable String imageName) {
+        Resource resource = new ClassPathResource("static/Img/Avatars/" + imageName);
+
+        if (!resource.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // Ajusta según el tipo de imagen
+                .body(resource);
     }
 
 

@@ -6,6 +6,7 @@ import CreatePost from './components/pages/CreatePost.jsx'
 import RegisterPage from './components/pages/RegisterPage.jsx'
 import LoginPage from './components/pages/LoginPage.jsx';
 import Privacy from "./components/pages/Privacy.jsx"; 
+import Profile from "./components/pages/Profile.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )
