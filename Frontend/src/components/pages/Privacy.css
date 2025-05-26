@@ -1,7 +1,7 @@
 .privacy-page {
   display: flex;
   min-height: 100vh;
-  background-color: #a8cef5;
+  background-color: #87CEEB;
   margin-left: 240px; /* Account for fixed sidebar */
   width: calc(100% - 240px); /* Adjust width */
 }
