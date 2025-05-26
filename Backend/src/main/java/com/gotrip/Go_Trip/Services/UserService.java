@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gotrip.Go_Trip.Entities.User;
 import com.gotrip.Go_Trip.Repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 
@@ -96,10 +97,10 @@ public class UserService {
         return response;
     }
 
-    public void deleteUserByUsername(String username) {
-    User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    userRepository.delete(user);
+    @Transactional
+    public void deleteUserById(Long id) {
+        userRepository.deleteUserPosts(id);
+        userRepository.deleteUser(id);
     }
 
 }

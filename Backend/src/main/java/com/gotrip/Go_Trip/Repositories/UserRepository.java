@@ -3,6 +3,7 @@ package com.gotrip.Go_Trip.Repositories;
 import com.gotrip.Go_Trip.Entities.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.Optional;
 
@@ -23,4 +24,12 @@ public interface UserRepository extends JpaRepository<User, Long>{ //Esta trabja
 
     @Query(value = "SELECT * FROM gotrip_db.users WHERE id=:id", nativeQuery = true)
     User getUserProfile(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "DELETE FROM gotrip_db.posts WHERE `user-id` = :id", nativeQuery = true)
+    void deleteUserPosts(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "DELETE FROM gotrip_db.users WHERE id = :id", nativeQuery = true)
+    void deleteUser(@Param("id") Long id);
 }

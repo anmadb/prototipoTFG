@@ -165,13 +165,14 @@ public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String au
 
         // Extrae el token (elimina "Bearer ")
         String token = authHeader.substring(7);
-        
+
         // Usa tu JwtUtilities para validar y extraer el username
         JwtUtilities jwtUtilities = new JwtUtilities();
-        String username = jwtUtilities.getUsernameFromToken(token);
+        String idString = jwtUtilities.getIdFromToken(token);
+        Long id = Long.valueOf(idString);
 
         // Elimina el usuario
-        userService.deleteUserByUsername(username);
+        userService.deleteUserById(id);
 
         // Respuesta exitosa
         return ResponseEntity.ok().body("Cuenta eliminada correctamente");
