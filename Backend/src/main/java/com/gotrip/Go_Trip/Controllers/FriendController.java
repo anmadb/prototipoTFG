@@ -1,4 +1,4 @@
-package com.gotrip.Go_Trip.Controllers;
+/* package com.gotrip.Go_Trip.Controllers;
 
 import java.util.List;
 
@@ -25,4 +25,4 @@ public class FriendController {
 
                              
 
-}
+} */

@@ -16,10 +16,11 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      <a href="/home">
       <div className="logo">
         <img src={logo} alt="GoTrip Logo" />
       </div>
-
+      </a>
       <ul className="menu">
         <li>
           <Link to="/profile" className="menu-link">

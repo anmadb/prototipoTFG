@@ -1,4 +1,4 @@
-package com.gotrip.Go_Trip.Services;
+/* package com.gotrip.Go_Trip.Services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,4 +32,4 @@ public class FriendService {
         
         return friends;
     }
-}
+} */

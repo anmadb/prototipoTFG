@@ -26,10 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+   
 
     public User registerUser(String username, String email, String password, MultipartFile avatar, String bio) throws IOException{ // este metodo hace todo el trabajo cuando un usuario se registra, recibe los datos del usuario
 
@@ -95,6 +92,14 @@ public class UserService {
 
 
         return response;
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public List<User> searchUsers(String searchTerm) {
+        return userRepository.searchUsers(searchTerm);
     }
 
     @Transactional

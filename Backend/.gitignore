@@ -34,3 +34,6 @@ build/
 
 .env
 postgres/
+
+src/main/resources/static/Img/Posts
+src/main/resources/static/Img/Avatars

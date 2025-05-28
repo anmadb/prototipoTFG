@@ -1,4 +1,4 @@
-package com.gotrip.Go_Trip.Entities;
+/* package com.gotrip.Go_Trip.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,3 +61,4 @@ public class Friend {
   
 
 }
+ */

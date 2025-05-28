@@ -1,4 +1,4 @@
-package com.gotrip.Go_Trip.Repositories;
+/* package com.gotrip.Go_Trip.Repositories;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,3 +16,4 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     @Query(value = "SELECT usuario_id2 FROM amistades WHERE usuario_id1 = :id", nativeQuery = true)
     List<Long> getFriend2(@Param("id") Long id); 
 }
+ */
