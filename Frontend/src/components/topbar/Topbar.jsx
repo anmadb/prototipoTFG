@@ -1,11 +1,11 @@
 // src/components/topbar/Topbar.jsx
 import React, { useState, useEffect } from "react";
-import { FaUsers, FaBell, FaUser, FaSearch } from 'react-icons/fa';
+import {FaComments, FaUsers, FaBell, FaUser, FaSearch } from 'react-icons/fa';
 import './Topbar.css';
 import debounce from 'lodash.debounce';// Para evitar llamadas excesivas a la API
 import axios from 'axios';
 import { getCookie, checkIsLogged } from "../../scripts/logged";
-
+import ChatPopup from '../chat/ChatPopup';
 
 const Topbar = () => {
   const [userId, setUserId] = useState(null);
@@ -15,6 +15,7 @@ const Topbar = () => {
   const [error, setError] = useState(null);
   const [friends, setFriends] = useState([]);
   const [friendsProfile, setFriendsProfile] = useState(null);
+  const [showChat, setShowChat] = useState(false);
   // Función para buscar usuarios en la API de goTrip
   const fetchUsers = async (term) => {
   if (!term.trim()) {
@@ -126,6 +127,8 @@ const Topbar = () => {
       {/* ICONOS A LA DERECHA */}
       <div className="topbar-icons">
 
+      
+         <button className="icon-btn" onClick={() => setShowChat(!showChat)}><FaComments /></button>
         <button className="icon-btn"><FaBell /></button>
         <details className="icon-btn">
           <summary className="btn-details"><FaUsers /></summary>
@@ -149,6 +152,7 @@ const Topbar = () => {
         <a href="/profile"><button className="user-btn"><FaUser /></button></a>
         
       </div>
+      {showChat && <ChatPopup onClose={() => setShowChat(false)} />}
     </div>
   );
 };
